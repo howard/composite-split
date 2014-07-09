@@ -32,3 +32,11 @@ TODO
 *   Extend wordlist with -ung form of common verbs
 *   Support irregular pluralization
 *   Favor shorter words if this allows finding a following word:
+
+Licensing
+---------
+
+The code in this repository is covered by the LICENSE file, except for the files in `data`. Those
+files have been taken from various sources under the terms of academic fair use. If you are the
+copyright holder and object the use of those files in this context, please get in touch so they can
+be taken down.
