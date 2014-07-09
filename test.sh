@@ -1,7 +1,7 @@
 #!/bin/bash
 
 PROFILE=true
-PURGE_UMLAUTS=true
+PURGE_UMLAUT=true
 
 testfile=data/compounds.txt
 
