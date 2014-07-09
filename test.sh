@@ -1,7 +1,7 @@
 #!/bin/bash
 
-PROFILE=true
-PURGE_UMLAUT=true
+export PROFILE=true
+export PURGE_UMLAUT=true
 
 testfile=data/compounds.txt
 
