@@ -4,13 +4,12 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.codexfons.compositesplit.dictionary.Dictionary;
-import com.codexfons.compositesplit.splitter.AbstractSplitter;
-import com.codexfons.compositesplit.splitter.NaiveSplitter;
+import com.codexfons.compositesplit.splitter.*;
 
 public class CommandLineInterface {
 	
 	public static class Config {
-		public String dictPath = "data/nomen-sg-filt.txt";
+		public String dictPath = "data/german-common-nouns-extended.txt";
 		public String compoundWord;
 	}
 	
@@ -35,7 +34,7 @@ public class CommandLineInterface {
 			System.err.println("A compound noun must be provided as last argument.");
 			return null;
 		} else {
-			config.compoundWord = argList.get(compoundWordIndex).toLowerCase();
+			config.compoundWord = Utils.normalizeInput(argList.get(compoundWordIndex));
 		}
 		
 		return config;
@@ -57,7 +56,13 @@ public class CommandLineInterface {
 		}
 		dict = Dictionary.getInstance(config.dictPath);
 		
-		splitAndPrint(config.compoundWord, NaiveSplitter.class, dict);
+		/*splitAndPrint(config.compoundWord, NaiveSplitter.class, dict);
+		splitAndPrint(config.compoundWord, AgressiveAntiGapSplitter.class, dict);
+		splitAndPrint(config.compoundWord, LookaheadAntiGapSplitter.class, dict);
+		splitAndPrint(config.compoundWord, RuleAntiGapSplitter.class, dict);*/
+		
+
+		splitAndPrint(config.compoundWord, Settings.SPLITTER, dict);
 	}
 
 }

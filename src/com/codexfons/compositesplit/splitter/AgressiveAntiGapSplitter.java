@@ -3,20 +3,21 @@ package com.codexfons.compositesplit.splitter;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Always uses the longest word.
- */
-public class NaiveSplitter extends AbstractSplitter {
+public class AgressiveAntiGapSplitter extends NaiveSplitter {
 	
-	protected String getLongestWord(String compoundWord) {
-		List<String> subWords = dict.getSubWords(compoundWord);
-		if (subWords.size() > 0) {
-			return subWords.get(subWords.size() - 1);
-		} else {
-			return null;
+	protected static String[] gapWords = new String[] {
+		"s", "en"
+	};
+	
+	protected int getSkipDistance(String compoundWordRest) {
+		for (String gapWord : gapWords) {
+			if (compoundWordRest.startsWith(gapWord)) {
+				return gapWord.length();
+			}
 		}
+		return 0;
 	}
-
+	
 	@Override
 	protected List<String> splitImpl(String compoundWord) {
 		List<String> subWords = new ArrayList<String>();
@@ -25,7 +26,8 @@ public class NaiveSplitter extends AbstractSplitter {
 			String longestWord = getLongestWord(compoundWord.substring(startIndex));
 			if (longestWord != null) {
 				subWords.add(longestWord);
-				remainingChars -= longestWord.length() - 1;
+				int skipDistance = getSkipDistance(compoundWord.substring(startIndex + longestWord.length()));
+				remainingChars -= longestWord.length() - 1 + skipDistance;
 			}
 		}
 		

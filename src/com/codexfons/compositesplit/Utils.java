@@ -25,5 +25,18 @@ public class Utils {
 		if (!Settings.PROFILE) return;
 		System.err.printf("### %s took %dms\n", purpose, System.currentTimeMillis() - stopwatchTimes.get(purpose));
 	}
+	
+	public static String normalizeInput(String input) {
+		input = input.toLowerCase();
+		// The given wordlist doesn't contain umlauts. Purge them from input.
+		if (Settings.PURGE_UMLAUT) {
+			input = input.replace('ä', 'a');
+			input = input.replace('ö', 'o');
+			input = input.replace('ü', 'u');
+			input = input.replace('é', 'e');
+			input = input.replace('è', 'e');
+		}
+		return input;
+	}
 
 }
