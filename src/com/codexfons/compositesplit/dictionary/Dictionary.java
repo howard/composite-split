@@ -110,7 +110,7 @@ public class Dictionary {
 		return node;
 	}
 	
-	protected void longestWordHelper(LetterNode node, String letters, int currIndex, List<String> subWords) {
+	protected void getSubWordsHelper(LetterNode node, String letters, int currIndex, List<String> subWords) {
 		LetterNode childNode = node.getChild(letters.charAt(currIndex));
 
 		if (node.isWord) {
@@ -125,13 +125,13 @@ public class Dictionary {
 		} else if (childNode == null) {
 			return;
 		} else {
-			longestWordHelper(childNode, letters, currIndex + 1, subWords);
+			getSubWordsHelper(childNode, letters, currIndex + 1, subWords);
 		}
 	}
 
 	public List<String> getSubWords(String compoundWord) {
 		List<String> subWords = new ArrayList<String>();
-		longestWordHelper(root, compoundWord, 0, subWords);
+		getSubWordsHelper(root, compoundWord, 0, subWords);
 		return subWords;
 	}
 }
