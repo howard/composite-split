@@ -111,11 +111,16 @@ public class Dictionary {
 	}
 	
 	protected void longestWordHelper(LetterNode node, String letters, int currIndex, List<String> subWords) {
+		LetterNode childNode = node.getChild(letters.charAt(currIndex));
+
 		if (node.isWord) {
 			subWords.add(letters.substring(0, currIndex));
 		}
-		LetterNode childNode = node.getChild(letters.charAt(currIndex));
+		
 		if (currIndex + 1 >= letters.length()) {
+			if (childNode != null && childNode.isWord) {
+				subWords.add(letters.substring(0, currIndex + 1));
+			}
 			return;
 		} else if (childNode == null) {
 			return;

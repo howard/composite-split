@@ -2,6 +2,9 @@ package com.codexfons.compositesplit.test;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -31,6 +34,21 @@ public class DictionaryTest {
 		node = dict.lookup("rad");
 		assertTrue(node.isWord);
 		assertFalse(node.isLeaf);
+	}
+	
+	@Test
+	public void testGetSubWords() {
+		List<String> subWords = dict.getSubWords("hausarzt");
+		assertEquals(1, subWords.size());
+		assertEquals("haus", subWords.get(0));
+	}
+	
+	@Test
+	public void testGetSubWordsExactMatch() {
+		List<String> subWords = dict.getSubWords("zwirnerei");
+		assertEquals(2, subWords.size());
+		assertEquals("zwirn", subWords.get(0));
+		assertEquals("zwirnerei", subWords.get(1));
 	}
 
 }
