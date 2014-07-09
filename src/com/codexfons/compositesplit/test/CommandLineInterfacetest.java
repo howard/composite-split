@@ -23,7 +23,7 @@ public class CommandLineInterfacetest {
 	@Test
 	public void testDefaultDict() {
 		Config config = CommandLineInterface.parseArgs(new String[] { "testwort" });
-		assertEquals(config.dictPath, "data/nomen-sg-filt.txt");
+		assertEquals(config.dictPath, "data/german-common-nouns-extended.txt");
 		assertEquals(config.compoundWord, "testwort");
 	}
 
