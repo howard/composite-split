@@ -3,12 +3,15 @@ package com.codexfons.compositesplit;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.codexfons.compositesplit.splitter.AbstractSplitter;
+import com.codexfons.compositesplit.splitter.NaiveSplitter;
+
 public class Settings {
 	
 	public static final boolean PROFILE;
 	public static final int ALPHABET_SIZE;
-	
 	public static final List<Character> SPECIAL_CHARS = new ArrayList<Character>();
+	public static final Class<? extends AbstractSplitter> SPLITTER = NaiveSplitter.class;
 	
 	static {
 		SPECIAL_CHARS.add('ä');

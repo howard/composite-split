@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.codexfons.compositesplit.dictionary.Dictionary;
+import com.codexfons.compositesplit.splitter.AbstractSplitter;
+import com.codexfons.compositesplit.splitter.NaiveSplitter;
 
 public class CommandLineInterface {
 	
@@ -33,23 +35,29 @@ public class CommandLineInterface {
 			System.err.println("A compound noun must be provided as last argument.");
 			return null;
 		} else {
-			config.compoundWord = argList.get(compoundWordIndex);
+			config.compoundWord = argList.get(compoundWordIndex).toLowerCase();
 		}
 		
 		return config;
 	}
 	
-	public static void main(String[] args) {
+	public static void splitAndPrint(String compoundWord, Class<? extends AbstractSplitter> splitterCls, Dictionary dict) throws InstantiationException, IllegalAccessException {
+		AbstractSplitter splitter = splitterCls.newInstance();
+		splitter.setDict(dict);
+		List<String> subWords = splitter.split(compoundWord);
+		for (String subWord : subWords) {
+			System.out.println(subWord);
+		}
+	}
+	
+	public static void main(String[] args) throws InstantiationException, IllegalAccessException {
 		Config config = parseArgs(args);
 		if (config == null) {
 			return;
 		}
 		dict = Dictionary.getInstance(config.dictPath);
-		//System.out.println(dict.contains(config.compoundWord));
-		List<String> subWords = dict.getSubWords(config.compoundWord);
-		for (String subWord : subWords) {
-			System.out.println(subWord);
-		}
+		
+		splitAndPrint(config.compoundWord, NaiveSplitter.class, dict);
 	}
 
 }
